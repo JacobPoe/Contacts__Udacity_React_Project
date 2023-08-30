@@ -1,35 +1,27 @@
 import './css/App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import ListContacts from './components/list-contacts-component';
+import * as ContactsAPI from './../src/utils/ContactsAPI';
 
 const App = () => {
   const removeContact = (contact) => {
+    ContactsAPI.remove(contact)
     setContacts(contacts.filter((con) => {
       return contact.id !== con.id;
     }))
   }
 
-  const [contacts, setContacts] = useState([
-    {
-      id: "karen",
-      name: "Karen Isgrigg",
-      handle: "karen_isgrigg",
-      avatarURL: "http://localhost:5001/karen.jpg",
-    },
-    {
-      id: "richard",
-      name: "Richard Kalehoff",
-      handle: "richardkalehoff",
-      avatarURL: "http://localhost:5001/richard.jpg",
-    },
-    {
-      id: "tyler",
-      name: "Tyler McGinnis",
-      handle: "tylermcginnis",
-      avatarURL: "http://localhost:5001/tyler.jpg",
-    }
-  ]);
+  const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    const getContacts = async () => {
+      const res = await ContactsAPI.getAll();
+      setContacts(res); 
+    };
+
+    getContacts();
+  }, []);
 
   return (
     <div>
