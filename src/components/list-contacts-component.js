@@ -26,7 +26,11 @@ const ListContacts = ({ contacts, onDeleteContact }) => {
                     value={query} 
                     onChange={(event) => updateQuery(event.target.value)}
                 />
-                <Link to="/create" className="add-contact">
+                <Link 
+                    to={{
+                        pathname: "/create"
+                    }}
+                    className="add-contact">
                     Add Contact
                 </Link>
             </div>

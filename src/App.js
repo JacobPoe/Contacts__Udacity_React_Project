@@ -4,8 +4,16 @@ import { useState, useEffect } from 'react';
 import ListContacts from './components/list-contacts-component';
 import * as ContactsAPI from './../src/utils/ContactsAPI';
 import CreateContact from './components/create-contact-component';
+import { Route, Routes } from 'react-router-dom';
 
 const App = () => {
+
+  const addContact = async (contact) => {
+      console.log('creating contact');
+             
+      const res = await ContactsAPI.create(contact);
+      setContacts([...contacts, res])
+  }
   const removeContact = (contact) => {
     ContactsAPI.remove(contact)
     setContacts(contacts.filter((con) => {
@@ -14,7 +22,6 @@ const App = () => {
   }
 
   const [contacts, setContacts] = useState([]);
-  const [screen, setScreen] = useState('list');
 
   useEffect(() => {
     const getContacts = async () => {
@@ -27,15 +34,13 @@ const App = () => {
 
   return (
     <div>
-      {/* <ListContacts contacts={contacts} onDeleteContact={removeContact}/> */}
-      {/* <CreateContact /> */}
-
-      {screen === 'list' && (
-        <ListContacts 
-          contacts={contacts} 
-          onDeleteContact={removeContact}/>
-      )}
-      {screen === 'create' && (<CreateContact />)}
+      <Routes>
+        <Route path='/create' element={<CreateContact onSubmit={addContact} />} />      
+        <Route path='/list' 
+          element={
+          <ListContacts contacts={contacts} onDeleteContact={removeContact} />
+        } />
+      </Routes>
     </div>
   )
 }
