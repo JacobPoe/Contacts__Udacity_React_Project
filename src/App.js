@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 
 import ListContacts from './components/list-contacts-component';
 import * as ContactsAPI from './../src/utils/ContactsAPI';
+import CreateContact from './components/create-contact-component';
 
 const App = () => {
   const removeContact = (contact) => {
@@ -13,6 +14,7 @@ const App = () => {
   }
 
   const [contacts, setContacts] = useState([]);
+  const [screen, setScreen] = useState('list');
 
   useEffect(() => {
     const getContacts = async () => {
@@ -25,7 +27,18 @@ const App = () => {
 
   return (
     <div>
-      <ListContacts contacts={contacts} onDeleteContact={removeContact}/>
+      {/* <ListContacts contacts={contacts} onDeleteContact={removeContact}/> */}
+      {/* <CreateContact /> */}
+
+      {screen === 'list' && (
+        <ListContacts 
+          contacts={contacts} 
+          onDeleteContact={removeContact}
+          onNavigate={() => {
+            setScreen('create')
+          }}/>
+      )}
+      {screen === 'create' && (<CreateContact />)}
     </div>
   )
 }
