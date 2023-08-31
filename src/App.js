@@ -33,10 +33,7 @@ const App = () => {
       {screen === 'list' && (
         <ListContacts 
           contacts={contacts} 
-          onDeleteContact={removeContact}
-          onNavigate={() => {
-            setScreen('create')
-          }}/>
+          onDeleteContact={removeContact}/>
       )}
       {screen === 'create' && (<CreateContact />)}
     </div>
