@@ -35,11 +35,11 @@ const App = () => {
   return (
     <div>
       <Routes>
-        <Route path='/create' element={<CreateContact onSubmit={addContact} />} />      
-        <Route path='/list' 
+        <Route exact path='/' 
           element={
           <ListContacts contacts={contacts} onDeleteContact={removeContact} />
         } />
+        <Route path='/create' element={<CreateContact onSubmit={addContact} />} />      
       </Routes>
     </div>
   )

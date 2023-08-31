@@ -77,10 +77,7 @@ export const CreateContact = ({onSubmit}) => {
                 Cancel
             </button>
 
-            <Link 
-                to={{
-                    pathname: "/list"
-                }}
+            <Link to={{pathname: "/"}}
                 className="list-contact">
                 List Contacts
             </Link>
